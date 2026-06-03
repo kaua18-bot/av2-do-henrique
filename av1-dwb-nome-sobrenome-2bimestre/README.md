@@ -1,7 +1,7 @@
 # AV1 DWB - Lista de Posts
 
 ## Objetivo
-Aplicação web simples em HTML5, CSS3, Bootstrap 5 e JavaScript puro que consome a API JSONPlaceholder para listar posts e exibir detalhes.
+Aplicação web simples em HTML5, CSS3, Bootstrap 5 e JavaScript puro que consome a API PokéAPI (Pokémon) para listar Pokémon e exibir detalhes.
 
 ## Tecnologias utilizadas
 - HTML5
@@ -30,8 +30,9 @@ av1-dwb-nome-sobrenome-2bimestre/
 Observação: não é necessário servidor local — abrir os arquivos diretamente funciona para esta aplicação.
 
 ## API utilizada
-- Listagem: `https://jsonplaceholder.typicode.com/posts`
-- Detalhes: `https://jsonplaceholder.typicode.com/posts/{id}`
+- Listagem e detalhes: `https://pokeapi.co/` (endpoints usados)
+- Listagem (exemplo): `https://pokeapi.co/api/v2/pokemon?limit=24`
+- Detalhes (exemplo): `https://pokeapi.co/api/v2/pokemon/{name}`
 
 ## Funcionalidades
 - Listagem de posts em cards responsivos.

@@ -15,3 +15,18 @@ body {
 .card-excerpt {
   color: #495057;
 }
+
+/* Pokémon specific */
+.poke-name {
+  text-transform: capitalize;
+  font-weight: 600;
+}
+.poke-img {
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
+}
+
+#details-container img {
+  max-width: 220px;
+}

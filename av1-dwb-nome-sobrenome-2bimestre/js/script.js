@@ -1,86 +1,90 @@
-// script.js - Página de listagem
-const API_URL = 'https://jsonplaceholder.typicode.com/posts';
+// script.js - Página de listagem (PokéAPI)
+const POKE_LIST_URL = 'https://pokeapi.co/api/v2/pokemon?limit=24';
 
 const loadingElement = document.getElementById('loading');
 const cardsContainer = document.getElementById('cards-container');
 const errorMessage = document.getElementById('error-message');
 
-// Mostra ou esconde o spinner
 function toggleLoading(show) {
   loadingElement.style.display = show ? 'flex' : 'none';
 }
 
-// Mostra uma mensagem de erro
 function showError(message) {
   errorMessage.textContent = message;
   errorMessage.classList.remove('d-none');
 }
 
-// Cria um card Bootstrap para um post
-function createPostCard(post) {
+function createPokemonCard(pokemon) {
   const col = document.createElement('div');
   col.className = 'col-12 col-sm-6 col-lg-4';
 
   const card = document.createElement('div');
-  card.className = 'card h-100';
+  card.className = 'card h-100 text-center p-3';
 
-  const body = document.createElement('div');
-  body.className = 'card-body d-flex flex-column';
+  const img = document.createElement('img');
+  img.src = pokemon.sprites.front_default || '';
+  img.alt = pokemon.name;
+  img.className = 'poke-img mx-auto';
 
   const title = document.createElement('h5');
-  title.className = 'card-title';
-  title.textContent = post.title;
+  title.className = 'poke-name mt-2';
+  title.textContent = pokemon.name;
 
-  const excerpt = document.createElement('p');
-  excerpt.className = 'card-text card-excerpt flex-grow-1';
-  excerpt.textContent = post.body.length > 120 ? post.body.slice(0, 120) + '...' : post.body;
+  const types = document.createElement('p');
+  types.className = 'text-muted';
+  types.textContent = pokemon.types.map(t => t.type.name).join(', ');
 
-  const btnWrapper = document.createElement('div');
-  btnWrapper.className = 'mt-3';
+  const btn = document.createElement('a');
+  btn.className = 'btn btn-primary';
+  btn.textContent = 'Ver Detalhes';
+  btn.href = `detalhes.html?name=${pokemon.name}`;
 
-  const detailsBtn = document.createElement('a');
-  detailsBtn.className = 'btn btn-primary';
-  detailsBtn.textContent = 'Ver Detalhes';
-  detailsBtn.href = `detalhes.html?id=${post.id}`;
-
-  btnWrapper.appendChild(detailsBtn);
-  body.appendChild(title);
-  body.appendChild(excerpt);
-  body.appendChild(btnWrapper);
-  card.appendChild(body);
+  card.appendChild(img);
+  card.appendChild(title);
+  card.appendChild(types);
+  card.appendChild(btn);
   col.appendChild(card);
 
   return col;
 }
 
-// Busca posts da API
-async function fetchPosts() {
+async function fetchPokemonList() {
   try {
-    const response = await fetch(API_URL);
-    if (!response.ok) throw new Error('Erro na resposta da API');
-    const posts = await response.json();
-    return posts;
-  } catch (error) {
-    throw error;
+    const res = await fetch(POKE_LIST_URL);
+    if (!res.ok) throw new Error('Erro ao buscar lista de Pokémon');
+    const data = await res.json();
+    return data.results; // array with name and url
+  } catch (err) {
+    throw err;
   }
 }
 
-// Carrega e renderiza os posts
-async function loadPosts() {
+async function fetchPokemonDetails(urlOrName) {
+  try {
+    const res = await fetch(typeof urlOrName === 'string' && urlOrName.startsWith('http') ? urlOrName : `https://pokeapi.co/api/v2/pokemon/${urlOrName}`);
+    if (!res.ok) throw new Error('Erro ao buscar detalhes do Pokémon');
+    return await res.json();
+  } catch (err) {
+    throw err;
+  }
+}
+
+async function loadPokemons() {
   toggleLoading(true);
   errorMessage.classList.add('d-none');
   cardsContainer.innerHTML = '';
 
   try {
-    const posts = await fetchPosts();
-    // Limitar a exibição para 24 itens para manter layout agradável
-    const limited = posts.slice(0, 24);
-    limited.forEach(post => {
-      const card = createPostCard(post);
+    const list = await fetchPokemonList();
+    // fetch details in parallel to get images and types
+    const detailPromises = list.map(item => fetchPokemonDetails(item.url));
+    const pokemons = await Promise.all(detailPromises);
+    pokemons.forEach(p => {
+      const card = createPokemonCard(p);
       cardsContainer.appendChild(card);
     });
   } catch (err) {
-    showError('Não foi possível carregar os posts. Tente novamente mais tarde.');
+    showError('Não foi possível carregar a Pokédex. Tente novamente mais tarde.');
     console.error(err);
   } finally {
     toggleLoading(false);
@@ -88,5 +92,5 @@ async function loadPosts() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  loadPosts();
+  loadPokemons();
 });
