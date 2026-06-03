@@ -9,16 +9,18 @@ const pageInfo = document.querySelector('#pageInfo');
 let allSeries = [];
 let filteredSeries = [];
 let currentPage = 1;
-const seriesPerPage = 20;
+const seriesPerPage = 30;
 
 // Busca inicial dos shows na API TVMaze usando fetch e async/await.
 const fetchShows = async () => {
   try {
     showLoading(true);
     let allData = [];
+    let page = 0;
+    let hasMore = true;
     
-    // Busca múltiplas páginas para obter o máximo de séries mundiais possível
-    for (let page = 0; page < 15; page++) {
+    // Busca todas as páginas disponíveis na API
+    while (hasMore) {
       try {
         const response = await fetch(`${API_URL}?page=${page}`);
         if (!response.ok) {
@@ -28,17 +30,23 @@ const fetchShows = async () => {
           break;
         }
         const data = await response.json();
-        if (data.length === 0) break;
+        if (data.length === 0) {
+          hasMore = false;
+          break;
+        }
         allData = [...allData, ...data];
+        page++;
       } catch (err) {
         if (page === 0) throw err;
-        break;
+        hasMore = false;
       }
     }
     
     if (allData.length === 0) {
       throw new Error('Nenhuma série encontrada.');
     }
+    
+    console.log(`✅ Total de séries carregadas: ${allData.length}`);
     
     allSeries = allData;
     filteredSeries = [...allSeries];
