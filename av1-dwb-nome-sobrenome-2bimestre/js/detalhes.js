@@ -36,7 +36,7 @@ async function loadDetails() {
 
   if (factParam) {
     // Exibir fato passado diretamente pela URL
-    factTitle.textContent = 'Fato (pesquisa)';
+    factTitle.textContent = 'Fato (Pesquisa)';
     factText.textContent = decodeURIComponent(factParam);
     factLength.textContent = lengthParam || '—';
     const img = document.getElementById('fact-image');
@@ -63,7 +63,8 @@ async function loadDetails() {
       return;
     }
     const item = items[index];
-    factTitle.textContent = `Fato #${(page - 1) * 24 + index + 1}`;
+    const num = (page - 1) * 24 + index + 1;
+    factTitle.textContent = `${numberToOrdinal(num)} Fato`;
     factText.textContent = item.fact;
     factLength.textContent = item.length;
     const img = document.getElementById('fact-image');

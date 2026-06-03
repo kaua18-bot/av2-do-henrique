@@ -34,7 +34,8 @@ function createFactCard(factObj, index, page = 1) {
 
   const title = document.createElement('h5');
   title.className = 'fact-title';
-  title.textContent = `Fato #${(page - 1) * PAGE_LIMIT + index + 1}`;
+  const num = (page - 1) * PAGE_LIMIT + index + 1;
+  title.textContent = `${numberToOrdinal(num)} Fato`;
 
   const excerpt = document.createElement('p');
   excerpt.className = 'card-text fact-card-text flex-grow-1';
@@ -67,6 +68,21 @@ async function fetchFacts(page = 1, limit = PAGE_LIMIT) {
   } catch (err) {
     throw err;
   }
+}
+
+// Converte números inteiros pequenos para ordinais em Português (1..50)
+function numberToOrdinal(n) {
+  const ord = [
+    'Zero','Primeiro','Segundo','Terceiro','Quarto','Quinto','Sexto','Sétimo','Oitavo','Nono',
+    'Décimo','Décimo Primeiro','Décimo Segundo','Décimo Terceiro','Décimo Quarto','Décimo Quinto',
+    'Décimo Sexto','Décimo Sétimo','Décimo Oitavo','Décimo Nono','Vigésimo',
+    'Vigésimo Primeiro','Vigésimo Segundo','Vigésimo Terceiro','Vigésimo Quarto','Vigésimo Quinto',
+    'Vigésimo Sexto','Vigésimo Sétimo','Vigésimo Oitavo','Vigésimo Nono','Trigésimo',
+    'Trigésimo Primeiro','Trigésimo Segundo','Trigésimo Terceiro','Trigésimo Quarto','Trigésimo Quinto',
+    'Trigésimo Sexto','Trigésimo Sétimo','Trigésimo Oitavo','Trigésimo Nono','Quadragésimo',
+    'Quadragésimo Primeiro','Quadragésimo Segundo','Quadragésimo Terceiro','Quadragésimo Quarto','Quadragésimo Quinto'
+  ];
+  return ord[n] || `${n}º`;
 }
 
 function renderFacts(facts, page = 1) {
