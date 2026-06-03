@@ -1,0 +1,17 @@
+/* Estilos personalizados */
+body {
+  background: #f8f9fa;
+}
+.navbar-brand {
+  font-weight: 600;
+}
+#cards-container .card {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+#cards-container .card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(33,37,41,0.12);
+}
+.card-excerpt {
+  color: #495057;
+}
