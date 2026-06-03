@@ -11,14 +11,14 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body class="bg-dark text-light">
-  <header class="navbar navbar-expand-lg navbar-dark fixed-top shadow-sm py-3 glass-navbar">
-    <div class="container">
-      <a class="navbar-brand fw-bold" href="#">TVMaze Stream</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+  <header class="navbar navbar-expand-lg navbar-dark fixed-top py-3 glass-navbar" style="margin: 0.75rem;">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold" href="index.html">📺 TVMaze Stream</a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navMenu">
-        <ul class="navbar-nav ms-auto align-items-lg-center">
+        <ul class="navbar-nav ms-auto">
           <li class="nav-item me-3">
             <a class="nav-link active" aria-current="page" href="#catalogo">Catálogo</a>
           </li>
@@ -31,32 +31,34 @@
   </header>
 
   <main class="pt-5">
-    <section class="hero-section py-5 text-center text-white overflow-hidden">
-      <div class="container py-5">
-        <p class="eyebrow mb-3">Catálogo de Séries</p>
-        <h1 class="display-5 fw-bold">Descubra séries incríveis com o poder da API TVMaze</h1>
-        <p class="lead text-white-75 mb-4">Pesquisa, spoilers visuais e detalhes completos para cada série no seu catálogo pessoal.</p>
-        <div class="search-bar mx-auto mb-4">
-          <input id="searchInput" type="search" class="form-control form-control-lg" placeholder="Buscar por título de série..." aria-label="Buscar séries" />
+    <section class="hero-section text-center text-white overflow-hidden">
+      <div class="container">
+        <p class="eyebrow">Catálogo de Séries</p>
+        <h1 class="fw-bold mb-3">Descubra Séries Incríveis</h1>
+        <p class="lead mb-4">Explore o maior catálogo de séries de TV com dados em tempo real da API TVMaze.</p>
+        <div class="search-bar mx-auto">
+          <input id="searchInput" type="search" class="form-control form-control-lg" placeholder="Buscar série por nome..." aria-label="Buscar séries" />
         </div>
       </div>
     </section>
 
-    <section class="container pb-5" id="catalogo">
-      <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between mb-4">
-        <div>
-          <h2 class="section-title mb-1">Destaques TVMaze</h2>
-          <p class="text-muted">Explore séries populares em um layout moderno e responsivo.</p>
+    <section class="container" id="catalogo">
+      <div class="d-flex flex-column flex-md-row align-items-start align-md-center justify-content-between mb-5 pb-2">
+        <div class="mb-4 mb-md-0">
+          <h2 class="section-title mb-2">Destaques TVMaze</h2>
+          <p class="text-secondary mb-0">Séries populares em um layout moderno e responsivo.</p>
         </div>
-        <div class="d-flex align-items-center gap-2">
+        <div class="d-flex align-items-center gap-3">
           <button id="loadMoreBtn" class="btn btn-outline-light btn-sm">Carregar mais</button>
-          <span id="pageInfo" class="text-muted"></span>
+          <span id="pageInfo" class="small"></span>
         </div>
       </div>
 
       <div id="loadingState" class="text-center py-5">
-        <div class="spinner-border text-warning" role="status"><span class="visually-hidden">Carregando...</span></div>
-        <p class="mt-3">Buscando séries do TVMaze...</p>
+        <div class="spinner-border text-warning mb-3" role="status">
+          <span class="visually-hidden">Carregando...</span>
+        </div>
+        <p class="text-secondary">Buscando séries do TVMaze...</p>
       </div>
 
       <div id="errorMessage" class="alert alert-danger d-none" role="alert"></div>
@@ -64,27 +66,27 @@
       <div id="seriesGrid" class="row g-4"></div>
     </section>
 
-    <section class="container pb-5" id="sobre">
-      <div class="glass-panel p-4">
-        <h3 class="mb-3">Sobre o projeto</h3>
-        <p class="text-muted">Este projeto demonstra consumo da API pública TVMaze com HTML5, CSS3, Bootstrap 5 e JavaScript puro. Foi criado como um catálogo moderno de séries e página de detalhes.</p>
-        <div class="row g-3 mt-4">
+    <section class="container" id="sobre">
+      <div class="glass-panel">
+        <h3 class="section-title mb-3">Sobre o Projeto</h3>
+        <p class="text-secondary mb-4">Este projeto demonstra o consumo de API REST pública com HTML5, CSS3, Bootstrap 5 e JavaScript puro. Um catálogo moderno de séries de TV com responsividade total e design de streaming profissional.</p>
+        <div class="row g-4 mt-5">
           <div class="col-md-4">
-            <div class="info-card p-3">
-              <h5>Design moderno</h5>
-              <p>Dark mode, gradientes e efeitos glassmorphism para uma interface de streaming.</p>
+            <div class="info-card">
+              <h5>🎨 Design Moderno</h5>
+              <p class="mb-0">Dark mode, gradientes e glassmorphism inspirados em plataformas profissionais de streaming.</p>
             </div>
           </div>
           <div class="col-md-4">
-            <div class="info-card p-3">
-              <h5>Interatividade</h5>
-              <p>Busca em tempo real, carregamento incremental e navegação fluida entre páginas.</p>
+            <div class="info-card">
+              <h5>⚡ Interatividade</h5>
+              <p class="mb-0">Busca em tempo real, carregamento incremental e navegação fluida entre páginas.</p>
             </div>
           </div>
           <div class="col-md-4">
-            <div class="info-card p-3">
-              <h5>API ao vivo</h5>
-              <p>Dados reais são buscados da API TVMaze com tratamento de erros e carregamento visual.</p>
+            <div class="info-card">
+              <h5>🔌 API em Tempo Real</h5>
+              <p class="mb-0">Dados reais da TVMaze com tratamento robusto de erros e feedback visual de carregamento.</p>
             </div>
           </div>
         </div>
@@ -92,8 +94,10 @@
     </section>
   </main>
 
-  <footer class="py-4 text-center text-muted small">
-    <div class="container">Projeto acadêmico de Desenvolvimento Web | Dados fornecidos pela API TVMaze</div>
+  <footer class="py-4 text-center">
+    <div class="container">
+      <p class="mb-0">Projeto acadêmico de Desenvolvimento Web | Dados fornecidos pela API TVMaze</p>
+    </div>
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js" integrity="sha512-kQX7f6bQE98hs3c4hED2lXpip0MVmXK4KSeip1nW5MdK4J2+yn4/k1H1XCIwK9S9MjF5Z4pDNCb7KjN9dfNBfA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

@@ -38,15 +38,16 @@ const renderDetail = (serie) => {
   detailImage.src = serie.image?.original || serie.image?.medium || 'https://via.placeholder.com/1200x675?text=S%C3%A9rie+sem+imagem';
   detailImage.alt = `Banner de ${serie.name}`;
   detailTitle.textContent = serie.name;
-  detailGenres.textContent = serie.genres.join(' · ') || 'Gênero não informado';
-  detailRating.textContent = serie.rating?.average ? `⭐ ${serie.rating.average}` : 'Sem avaliação';
+  detailGenres.textContent = serie.genres.join(' • ') || 'Gênero não informado';
+  detailRating.textContent = serie.rating?.average ? `⭐ ${serie.rating.average.toFixed(1)}` : 'Sem avaliação';
+  detailRating.className = serie.rating?.average ? 'badge bg-warning text-dark' : 'badge bg-secondary';
   detailStatus.textContent = serie.status || 'Status indisponível';
-  detailLanguage.textContent = serie.language || 'Idioma indisponível';
-  detailSummary.innerHTML = serie.summary || '<p class="text-muted">Resumo não disponível.</p>';
-  detailPremiered.textContent = serie.premiered || 'Não informado';
+  detailLanguage.textContent = (serie.language || 'Idioma não informado').toUpperCase();
+  detailSummary.innerHTML = serie.summary || '<p class="text-secondary">Resumo não disponível.</p>';
+  detailPremiered.textContent = serie.premiered ? new Date(serie.premiered).toLocaleDateString('pt-BR') : 'Não informado';
   detailNetwork.textContent = serie.network?.name || serie.webChannel?.name || 'Indisponível';
   detailOfficialSite.innerHTML = serie.officialSite
-    ? `<a href="${serie.officialSite}" target="_blank" rel="noopener noreferrer">Abrir site oficial</a>`
+    ? `<a href="${serie.officialSite}" target="_blank" rel="noopener noreferrer">Visitar site</a>`
     : 'Não disponível';
   detailTags.textContent = serie.genres.join(', ') || 'Sem gêneros';
   detailContent.classList.remove('d-none');

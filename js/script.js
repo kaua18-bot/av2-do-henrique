@@ -77,19 +77,19 @@ const renderPage = () => {
 // Cria o card HTML para cada série exibida no catálogo.
 const createSeriesCard = (serie) => {
   const col = document.createElement('div');
-  col.className = 'col-12 col-sm-6 col-xl-4';
+  col.className = 'col-12 col-sm-6 col-lg-4 col-xl-3';
 
   const card = document.createElement('article');
   card.className = 'card-series';
   card.innerHTML = `
-    <img src="${serie.image?.medium || 'https://via.placeholder.com/420x594?text=Imagem+Indispon%C3%ADvel'}" alt="${serie.name}" class="img-fluid" />
+    <img src="${serie.image?.medium || 'https://via.placeholder.com/420x594?text=Sem+imagem'}" alt="${serie.name}" class="img-fluid" />
     <div class="card-body">
       <h3 class="card-title">${serie.name}</h3>
-      <p class="card-text mb-3">${serie.genres.slice(0, 3).join(' · ') || 'Gênero indisponível'}</p>
+      <p class="card-text">${serie.genres.slice(0, 2).join(' • ') || 'Gênero indisponível'}</p>
       <div class="mb-3">
-        ${serie.rating?.average ? `<span class="badge bg-warning text-dark">⭐ ${serie.rating.average}</span>` : '<span class="badge bg-secondary">Sem avaliação</span>'}
+        ${serie.rating?.average ? `<span class="badge bg-warning text-dark">⭐ ${serie.rating.average.toFixed(1)}</span>` : '<span class="badge bg-secondary">Sem avaliação</span>'}
       </div>
-      <a href="detalhes.html?id=${serie.id}" class="btn btn-warning btn-detail">Ver Detalhes</a>
+      <a href="detalhes.html?id=${serie.id}" class="btn btn-warning btn-detail w-100">Detalhes</a>
     </div>
   `;
 
