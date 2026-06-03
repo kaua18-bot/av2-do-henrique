@@ -42,6 +42,8 @@ async function loadDetails() {
     const img = document.getElementById('fact-image');
     if (img) img.src = `https://loremflickr.com/640/480/cat?random=${Date.now()}`;
     detailsContainer.classList.remove('d-none');
+    // garantir que o spinner não fique visível quando abrimos por texto
+    try { toggleDetailsLoading(false); } catch (e) { /* noop */ }
     return;
   }
 
