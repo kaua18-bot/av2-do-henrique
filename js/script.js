@@ -9,7 +9,7 @@ const pageInfo = document.querySelector('#pageInfo');
 let allSeries = [];
 let filteredSeries = [];
 let currentPage = 1;
-const seriesPerPage = 30;
+const seriesPerPage = 40;
 
 // Busca inicial dos shows na API TVMaze usando fetch e async/await.
 const fetchShows = async () => {
