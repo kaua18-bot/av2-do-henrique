@@ -16,17 +16,10 @@ body {
   color: #495057;
 }
 
-/* Pokémon specific */
-.poke-name {
-  text-transform: capitalize;
-  font-weight: 600;
+/* Fatos specific */
+.fact-title {
+  font-weight: 700;
 }
-.poke-img {
-  width: 96px;
-  height: 96px;
-  object-fit: contain;
-}
-
-#details-container img {
-  max-width: 220px;
+.fact-card-text {
+  word-break: break-word;
 }
