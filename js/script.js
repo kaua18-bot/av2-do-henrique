@@ -9,7 +9,7 @@ const pageInfo = document.querySelector('#pageInfo');
 let allSeries = [];
 let filteredSeries = [];
 let currentPage = 1;
-const seriesPerPage = 12;
+const seriesPerPage = 18;
 
 // Busca inicial dos shows na API TVMaze usando fetch e async/await.
 const fetchShows = async () => {
@@ -77,7 +77,7 @@ const renderPage = () => {
 // Cria o card HTML para cada série exibida no catálogo.
 const createSeriesCard = (serie) => {
   const col = document.createElement('div');
-  col.className = 'col-12 col-sm-6 col-lg-4 col-xl-3';
+  col.className = 'col-6 col-sm-4 col-md-3 col-lg-2_4';
 
   const card = document.createElement('article');
   card.className = 'card-series';

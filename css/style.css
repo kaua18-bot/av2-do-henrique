@@ -168,30 +168,37 @@ main > section {
 .card-series img {
   object-fit: cover;
   width: 100%;
-  aspect-ratio: 3/4;
+  aspect-ratio: 2/3;
   display: block;
 }
 
 .card-body {
-  padding: var(--spacing-md);
+  padding: 0.9rem;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 }
 
 .card-title {
-  font-size: 1.15rem;
+  font-size: 0.95rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.35rem;
   color: var(--text-primary);
-  line-height: 1.3;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .card-text {
   color: var(--text-secondary);
-  font-size: 0.95rem;
-  margin-bottom: var(--spacing-sm);
+  font-size: 0.8rem;
+  margin-bottom: 0.6rem;
   flex-grow: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .badge-genre {
@@ -203,9 +210,9 @@ main > section {
 
 .btn-detail {
   border-radius: 100px;
-  padding: 0.7rem 1.8rem;
+  padding: 0.5rem 1.2rem;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 0.8rem;
   transition: all 0.3s ease;
   margin-top: auto;
 }
@@ -338,6 +345,25 @@ footer {
   color: var(--text-secondary);
 }
 
+/* Custom grid columns for Netflix-style layout */
+.col-lg-2_4 {
+  --bs-gutter-x: 0.75rem;
+  flex: 0 0 auto;
+  width: calc(16.666667% + 0.19rem);
+}
+
+@media (max-width: 992px) {
+  .col-lg-2_4 {
+    width: calc(20% + 0.15rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .col-lg-2_4 {
+    width: 33.333333%;
+  }
+}
+
 @media (max-width: 768px) {
   .hero-section {
     min-height: 45vh;
@@ -354,10 +380,6 @@ footer {
 
   main > section {
     padding: var(--spacing-md) 0;
-  }
-
-  .card-series img {
-    aspect-ratio: 3/4;
   }
 }
 
