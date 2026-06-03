@@ -127,8 +127,8 @@ document.addEventListener('DOMContentLoaded', () => {
     searchInput.addEventListener('input', (e) => {
       const term = e.target.value.trim().toLowerCase();
       if (!term) return renderFacts(allFacts);
-      const filtered = allFacts.filter(f => f.fact.toLowerCase().includes(term));
-      renderFacts(filtered);
+      const match = allFacts.find(f => f.fact.toLowerCase().includes(term));
+      renderFacts(match ? [match] : []);
     });
   }
   if (searchClear) {
