@@ -343,6 +343,8 @@ footer {
 
 #pageInfo {
   color: var(--text-secondary);
+  font-size: 0.9rem;
+  white-space: nowrap;
 }
 
 /* Custom grid columns for Netflix-style layout */

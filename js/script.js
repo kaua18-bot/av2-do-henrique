@@ -9,18 +9,33 @@ const pageInfo = document.querySelector('#pageInfo');
 let allSeries = [];
 let filteredSeries = [];
 let currentPage = 1;
-const seriesPerPage = 18;
+const seriesPerPage = 24;
 
 // Busca inicial dos shows na API TVMaze usando fetch e async/await.
 const fetchShows = async () => {
   try {
     showLoading(true);
-    const response = await fetch(API_URL);
-    if (!response.ok) {
-      throw new Error('Falha ao carregar os dados da API.');
+    let allData = [];
+    
+    // Busca múltiplas páginas para obter o máximo de séries possível
+    for (let page = 0; page < 8; page++) {
+      const response = await fetch(`${API_URL}?page=${page}`);
+      if (!response.ok) {
+        if (page === 0) {
+          throw new Error('Falha ao carregar os dados da API.');
+        }
+        break; // Para quando não há mais páginas
+      }
+      const data = await response.json();
+      if (data.length === 0) break; // Pára quando não há mais dados
+      allData = [...allData, ...data];
     }
-    const data = await response.json();
-    allSeries = data;
+    
+    if (allData.length === 0) {
+      throw new Error('Nenhuma série encontrada.');
+    }
+    
+    allSeries = allData;
     filteredSeries = [...allSeries];
     renderPage();
   } catch (error) {
@@ -70,7 +85,11 @@ const renderPage = () => {
   });
 
   const totalPages = Math.ceil(filteredSeries.length / seriesPerPage);
-  pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
+  const totalSeries = allSeries.length;
+  const startItem = (currentPage - 1) * seriesPerPage + 1;
+  const endItem = Math.min(currentPage * seriesPerPage, filteredSeries.length);
+  
+  pageInfo.textContent = `${startItem}-${endItem} de ${filteredSeries.length} ${filteredSeries.length === totalSeries ? `(${totalSeries} séries)` : 'resultados'}`;
   loadMoreBtn.disabled = currentPage >= totalPages;
 };
 
