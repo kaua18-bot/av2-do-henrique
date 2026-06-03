@@ -21,6 +21,11 @@ function createFactCard(factObj, index, page = 1) {
 
   const card = document.createElement('div');
   card.className = 'card h-100 p-3';
+  const img = document.createElement('img');
+  img.className = 'img-fluid mb-2';
+  img.alt = 'imagem de gato';
+  // imagem aleatória de gato
+  img.src = `https://loremflickr.com/320/240/cat?random=${Date.now() + index}`;
 
   const title = document.createElement('h5');
   title.className = 'fact-title';
@@ -38,7 +43,7 @@ function createFactCard(factObj, index, page = 1) {
   btn.className = 'btn btn-primary';
   btn.textContent = 'Ver Detalhes';
   btn.href = `detalhes.html?page=1&index=${index}`;
-
+  card.appendChild(img);
   card.appendChild(title);
   card.appendChild(excerpt);
   card.appendChild(meta);

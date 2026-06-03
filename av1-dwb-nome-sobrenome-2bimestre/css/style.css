@@ -23,3 +23,16 @@ body {
 .fact-card-text {
   word-break: break-word;
 }
+
+/* Imagens de fatos */
+.fact-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.card .img-fluid {
+  max-height: 200px;
+  object-fit: cover;
+  width: 100%;
+}

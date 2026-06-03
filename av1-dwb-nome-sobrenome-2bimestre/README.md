@@ -1,7 +1,7 @@
 # AV1 DWB - Lista de Posts
 
 ## Objetivo
-Aplicação web simples em HTML5, CSS3, Bootstrap 5 e JavaScript puro que consome a API catfact.ninja para listar fatos de gatos e exibir detalhes.
+Aplicação web simples em HTML5, CSS3, Bootstrap 5 e JavaScript puro que consome a API catfact.ninja para listar fatos de gatos e exibir detalhes. Cada fato exibe uma foto aleatória de gato (fornecida por loremflickr) para melhorar a interface.
 
 ## Tecnologias utilizadas
 - HTML5
@@ -32,7 +32,7 @@ Observação: não é necessário servidor local — abrir os arquivos diretamen
 ## API utilizada
 - Listagem e detalhes: `https://catfact.ninja/` (endpoints usados)
 - Listagem (exemplo): `https://catfact.ninja/facts?limit=24&page=1`
-- Detalhes (exemplo): `https://catfact.ninja/facts?limit=24&page=1` (a página é buscada e o item selecionado é identificado pelo índice)
+- Detalhes (exemplo): `https://catfact.ninja/facts?limit=24&page=1` (a página é buscada e o item selecionado é identificado pelo índice). As imagens são obtidas de `https://loremflickr.com/`.
 
 ## Funcionalidades
 - Listagem de posts em cards responsivos.

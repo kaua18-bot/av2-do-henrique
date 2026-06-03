@@ -51,6 +51,11 @@ async function loadDetails() {
     factTitle.textContent = `Fato #${(page - 1) * 24 + index + 1}`;
     factText.textContent = item.fact;
     factLength.textContent = item.length;
+    const img = document.getElementById('fact-image');
+    if (img) {
+      img.src = `https://loremflickr.com/640/480/cat?random=${Date.now() + index}`;
+      img.alt = 'imagem de gato';
+    }
     detailsContainer.classList.remove('d-none');
   } catch (err) {
     showDetailsError('Não foi possível carregar os detalhes. Tente novamente.');
