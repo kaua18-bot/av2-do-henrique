@@ -9,7 +9,7 @@ const pageInfo = document.querySelector('#pageInfo');
 let allSeries = [];
 let filteredSeries = [];
 let currentPage = 1;
-const seriesPerPage = 24;
+const seriesPerPage = 20;
 
 // Busca inicial dos shows na API TVMaze usando fetch e async/await.
 const fetchShows = async () => {
@@ -17,18 +17,23 @@ const fetchShows = async () => {
     showLoading(true);
     let allData = [];
     
-    // Busca múltiplas páginas para obter o máximo de séries possível
-    for (let page = 0; page < 8; page++) {
-      const response = await fetch(`${API_URL}?page=${page}`);
-      if (!response.ok) {
-        if (page === 0) {
-          throw new Error('Falha ao carregar os dados da API.');
+    // Busca múltiplas páginas para obter o máximo de séries mundiais possível
+    for (let page = 0; page < 15; page++) {
+      try {
+        const response = await fetch(`${API_URL}?page=${page}`);
+        if (!response.ok) {
+          if (page === 0) {
+            throw new Error('Falha ao carregar os dados da API.');
+          }
+          break;
         }
-        break; // Para quando não há mais páginas
+        const data = await response.json();
+        if (data.length === 0) break;
+        allData = [...allData, ...data];
+      } catch (err) {
+        if (page === 0) throw err;
+        break;
       }
-      const data = await response.json();
-      if (data.length === 0) break; // Pára quando não há mais dados
-      allData = [...allData, ...data];
     }
     
     if (allData.length === 0) {
@@ -120,7 +125,15 @@ const createSeriesCard = (serie) => {
 const handleSearch = (event) => {
   const searchTerm = event.target.value.toLowerCase().trim();
   currentPage = 1;
-  filteredSeries = allSeries.filter((serie) => serie.name.toLowerCase().includes(searchTerm));
+  
+  if (searchTerm === '') {
+    filteredSeries = [...allSeries];
+  } else {
+    filteredSeries = allSeries.filter((serie) => 
+      serie.name.toLowerCase().includes(searchTerm)
+    );
+  }
+  
   renderPage();
 };
 
