@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Detalhes do Fato - AV1 DWB</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">AV1 DWB - Pokédex</a>
+      </div>
+    </nav>
+
+    <main class="container my-4">
+      <div id="error-message" class="alert alert-danger d-none" role="alert"></div>
+
+      <div id="loading" class="d-flex justify-content-center my-4">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Carregando fato...</span>
+        </div>
+      </div>
+
+      <div id="details-container" class="card d-none">
+        <div class="card-body text-center">
+          <img id="fact-image" src="" alt="imagem de gato" class="img-fluid mb-3" />
+          <h3 id="fact-title" class="card-title">Fato de Gato</h3>
+          <p id="fact-text" class="card-text fs-5"></p>
+          <p class="text-muted"><strong>Comprimento:</strong> <span id="fact-length"></span></p>
+          <a id="back-button" class="btn btn-secondary" href="index.html">Voltar à lista</a>
+        </div>
+      </div>
+    </main>
+
+    <script src="js/detalhes.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
