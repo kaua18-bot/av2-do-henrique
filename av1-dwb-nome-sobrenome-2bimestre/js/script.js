@@ -5,6 +5,11 @@ const PAGE_LIMIT = 24;
 const loadingElement = document.getElementById('loading');
 const cardsContainer = document.getElementById('cards-container');
 const errorMessage = document.getElementById('error-message');
+const searchInput = document.getElementById('search-input');
+const searchClear = document.getElementById('search-clear');
+const noResults = document.getElementById('no-results');
+
+let allFacts = [];
 
 function toggleLoading(show) {
   loadingElement.style.display = show ? 'flex' : 'none';
@@ -64,6 +69,19 @@ async function fetchFacts(page = 1, limit = PAGE_LIMIT) {
   }
 }
 
+function renderFacts(facts, page = 1) {
+  cardsContainer.innerHTML = '';
+  if (!facts || facts.length === 0) {
+    noResults.classList.remove('d-none');
+    return;
+  }
+  noResults.classList.add('d-none');
+  facts.forEach((f, i) => {
+    const card = createFactCard(f, i, page);
+    cardsContainer.appendChild(card);
+  });
+}
+
 async function loadFacts() {
   toggleLoading(true);
   errorMessage.classList.add('d-none');
@@ -77,10 +95,8 @@ async function loadFacts() {
       showError('Nenhum fato encontrado.');
       return;
     }
-    facts.forEach((f, i) => {
-      const card = createFactCard(f, i, page);
-      cardsContainer.appendChild(card);
-    });
+    allFacts = facts; // manter lista para pesquisa local
+    renderFacts(allFacts, page);
   } catch (err) {
     showError('Não foi possível carregar os fatos. Tente novamente mais tarde.');
     console.error(err);
@@ -91,4 +107,18 @@ async function loadFacts() {
 
 document.addEventListener('DOMContentLoaded', () => {
   loadFacts();
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      const term = e.target.value.trim().toLowerCase();
+      if (!term) return renderFacts(allFacts);
+      const filtered = allFacts.filter(f => f.fact.toLowerCase().includes(term));
+      renderFacts(filtered);
+    });
+  }
+  if (searchClear) {
+    searchClear.addEventListener('click', () => {
+      if (searchInput) searchInput.value = '';
+      renderFacts(allFacts);
+    });
+  }
 });

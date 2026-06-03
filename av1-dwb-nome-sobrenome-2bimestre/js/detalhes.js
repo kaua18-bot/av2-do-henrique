@@ -30,9 +30,22 @@ async function fetchFacts(page = 1, limit = 24) {
 async function loadDetails() {
   const params = new URLSearchParams(window.location.search);
   const page = parseInt(params.get('page') || '1', 10);
-  const index = parseInt(params.get('index') || '', 10);
+  const index = params.has('index') ? parseInt(params.get('index'), 10) : null;
+  const factParam = params.get('fact');
+  const lengthParam = params.get('length');
 
-  if (Number.isNaN(index)) {
+  if (factParam) {
+    // Exibir fato passado diretamente pela URL
+    factTitle.textContent = 'Fato (pesquisa)';
+    factText.textContent = decodeURIComponent(factParam);
+    factLength.textContent = lengthParam || '—';
+    const img = document.getElementById('fact-image');
+    if (img) img.src = `https://loremflickr.com/640/480/cat?random=${Date.now()}`;
+    detailsContainer.classList.remove('d-none');
+    return;
+  }
+
+  if (index === null || Number.isNaN(index)) {
     showDetailsError('Índice do fato não informado na URL.');
     return;
   }
